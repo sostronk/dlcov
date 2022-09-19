@@ -48,11 +48,12 @@ class Lcov {
 
         records = records.where((record) {
           if (record.file == null) return true;
-          final file = File(record.file!);
-          final loc = file.readAsLinesSync();
-          final hasPatterns = fileMatcher.hasPatterns(
-              values: loc, patterns: excludeContentsByPathList);
-          return !hasPatterns;
+          for (var excludePattern in excludeContentsByPathList) {
+            if (excludePattern.hasMatch(record.file!)) {
+              return false;
+            }
+          }
+          return true;
         }).toList();
       } else if (config.excludeContents.isNotEmpty) {
         records = records.where((record) {
