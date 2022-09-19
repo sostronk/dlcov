@@ -47,6 +47,7 @@ class CreateFileReferences {
     ];
 
     fileImports.add('// ignore_for_file: unused_import');
+    filteredFilePaths.sort();
 
     fileImports.addAll(filteredFilePaths
         .map((path) =>
