@@ -105,10 +105,12 @@ class CreateFileReferencesHelper {
           .toList(growable: false);
 
       filteredList = filteredList.where((file) {
-        final loc = file.readAsLinesSync();
-        final hasPatterns = fileMatcher.hasPatterns(
-            values: loc, patterns: excludeContentsByPathList);
-        return !hasPatterns;
+        for (var excludePattern in excludeContentsByPathList) {
+          if (excludePattern.hasMatch(file.path)) {
+            return false;
+          }
+        }
+        return true;
       });
     } else if (excludeContents.isNotEmpty) {
       filteredList = filteredList.where((file) {
