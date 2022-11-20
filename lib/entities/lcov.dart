@@ -82,6 +82,8 @@ class Lcov {
 
   /// Update totals
   void updateTotals(Record rec) {
+    coverage.addFileCoverageRecord(
+        rec.file, (rec.lines?.hit ?? 0) * 100 / (rec.lines?.found ?? 0));
     totalFinds += rec.lines?.found ?? 0;
     totalHits += rec.lines?.hit ?? 0;
   }
