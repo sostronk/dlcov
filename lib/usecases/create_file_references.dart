@@ -54,7 +54,7 @@ class CreateFileReferences {
             "import 'package:$_packageName${path.replaceFirst(_sourceDirectory, '').replaceAll('\\', '/')}';")
         .toList());
 
-    fileImports.add('void main(){}');
+    fileImports.add('''void main(){return;}''');
 
     final allFilesReferences = fileImports.join('\n');
 
